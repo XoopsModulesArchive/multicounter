@@ -1,0 +1,331 @@
+<html>
+<head>
+<title>まるかんた説明書</title>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta name="description" content="マルチ機能アクセスカウンター・まるかんた">
+<meta NAME="keywords" content="アクセスカウンター,キリ番,アクセスログ,アクセス解析,php">
+</head>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="16">
+<h1><font color="#666666" size="-1"><BR>
+マルチ機能アクセスカウンター</font><font size="-1"><BR>
+<font color="#0000FF"><BR>
+</font></font><font color="#006600" face="ＭＳ Ｐ明朝, 細明朝体"><strong>ま る か ん た</strong> v1.40</font>
+</h1>
+<p>最終更新 2003/08/25</p>
+<table border="0" cellpadding="4" cellspacing="0">
+<tr>
+<td>プログラム製作</td>
+<td>t.kawabata</td>
+</tr>
+<tr>
+<td>配布元</td>
+<td><a href="http://www.planet-green.com/">ぷらねっとぐりーん </a> ( http://www.planet-green.com/
+)</td>
+</tr>
+</table>
+<BR>
+<hr size="1" noshade>
+<h3><font color="#006600">このアクセスカウンタで出来ること </font>
+</h3>
+<p>〇キリ番登録<BR>
+　・キリ番だった時に訪問者の名前を残せます。<BR>
+　・もちろん、キリ番機能を使わずに普通のアクセスカウンタとして使うことも可能です。<BR>
+<BR>
+○強力なアクセスログ解析機能<BR>
+　・Referer（訪問者がどのリンクページから来たか）を記録できます。<BR>
+　・全文検索型のサーチエンジン(Google,Infoseek,goo等)から来た時の検索キーワードを集計できます。<BR>
+　・各訪問者について、何回目の訪問か、前回の訪問日時はいつかを記録できます。<BR>
+　・アクセスログをCSVファイルとして、エクセル等で開くことが出来ます。<BR>
+<BR>
+○昨日と今日のアクセス数も表示できます<BR>
+○数秒以内の連続アクセスはカウントしないようにできます<BR>
+○カウンタ画像は自由に他の画像と差し替えて使えます<BR>
+○カウンターは表示せずに、アクセスログ機能だけを利用することも出来ます</p>
+<hr size="1" noshade>
+<h3><b><font color="#006600">動作対象</font></b>
+</h3>
+<p> PHP v4.1.0以降。GDライブラリが使用可能であること。<BR>
+(GDライブラリとは、CGIや各種プログラムから画像の作成・編集を行うためのライブラリです。PHP4.3.0からは標準で実装されています。)</p>
+<hr size="1" noshade>
+<h3><strong><font color="#006600">使用条件</font></strong></h3>
+<p>原則として誰でも自由に使えますが、商用利用する場合は事前に御連絡ください。<BR>
+CGIの改造・再配布は自由ですが、必ず、CGIと付属のドキュメントに記述されている作者名と<BR>
+作者サイトへのリンクを残してください。<BR>
+</p>
+<hr size="1" noshade>
+<h3><b><font color="#006600">配布ファイルに含まれている内容</font></b>
+</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+<tr>
+<td nowrap>counter.php</td>
+<td>カウンターCGI</td>
+</tr>
+<tr>
+<td nowrap>admin.php</td>
+<td>管理用CGI</td>
+</tr>
+<tr>
+<td nowrap>image.png</td>
+<td>カウンタ用数字画像</td>
+</tr>
+<tr>
+<td nowrap>
+sample.html</td>
+<td>サンプルページ（キリ番ゲット機能有り）</td>
+</tr>
+<tr>
+<td nowrap>sample2.html</td>
+<td>サンプルページ（キリ番ゲット機能無し）</td>
+</tr>
+<tr>
+<td nowrap>/data</td>
+<td>CGIがデータを保存するディレクトリ(初期状態は空)</td>
+</tr>
+<tr>
+<td nowrap>/manual</td>
+<td>説明書用ディレクトリ</td>
+</tr>
+<tr>
+<td nowrap>└ readme.html</td>
+<td>説明書(このドキュメント)</td>
+</tr>
+<tr>
+<td nowrap>└ image_for_document1.jpg</td>
+<td>↑で使用している画像</td>
+</tr>
+<tr>
+<td nowrap>/sample_image</td>
+<td>数字画像のサンプルが入っているディレクトリ</td>
+</tr>
+</table>
+<BR>
+<HR>
+<h3><b><font color="#006600">設置方法／実行方法</font></b>
+</h3>
+<b><font color="#FF6600">○ステップ１　HTMLファイルへのスクリプト追加</font></b>
+<p>「まるかんた」は多くの機能を持ったアクセスカウンターですが、利用する機能によってHTMLに挿入するタグが異なります。</p>
+<p><font color="#006600"><strong>▼普通のアクセスカウンターとして使用する場合</strong></font></p>
+<p>　キリ番登録機能もリンク元記録機能も不要で、普通のアクセスカウンターとして使えればいいという場合は、次の１行をカウンターを表示したい部分に挿入してください。</p>
+<table border="0" cellspacing="0" cellpadding="8">
+<tr>
+<td bgcolor="#D9D9EA">&lt;img src=&quot;<strong><font color="#9900FF">./counter.php?page=1</font></strong>&quot;&gt;</td>
+</tr>
+</table>
+<p><BR>
+<strong><font color="#006600">▼キリ番登録機能、リンク元記録機能を使う場合</font></strong></p>
+<p>　キリ番登録機能、リンク元記録機能を使う場合は、次の３つのスクリプトを挿入します。見本のHTMLファイル(sample.html)を用意していますので、そこからコピー＆ペーストすれば簡単です。</p>
+<p>
+1.カウンター画像を表示したいところに埋め込むスクリプト</p>
+<table border="0" cellspacing="0" cellpadding="8">
+<tr>
+<td bgcolor="#D9D9EA">&lt;!-- カウンター表示部ここから --&gt;<BR>
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;&lt;!--<BR>
+c_url = &quot;<font color="#9900FF"><strong>./counter.php?page=1</strong></font>&amp;mode=js&amp;ref=&quot;+document.referrer;<BR>
+document.write(&quot;&lt;sc&quot;+&quot;ript language='JavaScript' src='&quot;+c_url+&quot;'&gt;&lt;/sc&quot;+&quot;ript&gt;&quot;);<BR>
+// --&gt;<BR>
+&lt;/SCRIPT&gt;<BR>
+&lt;NOSCRIPT&gt;&lt;img src=&quot;<font color="#9900FF"><strong>./counter.php?page=1</strong></font>&quot;&gt;&lt;/NOSCRIPT&gt; <BR>
+&lt;!-- カウンター表示部ここまで --&gt; </td>
+</tr>
+</table>
+<p>2.キリ番ゲット者一覧を表示したい部分に埋め込むスクリプト。</p>
+<table border="0" cellspacing="0" cellpadding="8">
+<tr>
+<td bgcolor="#D9D9EA">&lt;!-- キリ番ゲット者一覧ここから --&gt;<BR>
+&lt;script language=&quot;JavaScript&quot; src=&quot;<font color="#9900FF"><strong>./counter.php?page=1</strong></font>&amp;mode=kg&quot;&gt;&lt;/script&gt;<BR>
+&lt;!-- キリ番ゲット者一覧ここまで --&gt; </td>
+</tr>
+</table>
+<p>3.ページの末尾に埋め込むスクリプト。&lt;/body&gt;タグの手前に埋め込むのが望ましい。</p>
+<table border="0" cellspacing="0" cellpadding="8">
+<tr>
+<td bgcolor="#D9D9EA">&lt;!-- 名前送信部ここから --&gt;<BR>
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;&lt;!--<BR>
+GetName(); // --&gt;<BR>
+&lt;/SCRIPT&gt;<BR>
+&lt;!-- 名前送信部ここまで --&gt; </td>
+</tr>
+</table>
+<p>&nbsp;</p>
+<p><font color="#006600"><strong>▼キリ番ゲット機能を使わない場合</strong></font></p>
+<p>キリ番ゲット機能は使わないがリンク元記録機能は使うという場合は、次のスクリプトを挿入してください。</p>
+<table border="0" cellspacing="0" cellpadding="8">
+<tr>
+<td bgcolor="#D9D9EA">&lt;!-- カウンター表示部ここから --&gt;<BR>
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;&lt;!--<BR>
+c_url = &quot;<strong><font color="#9900FF">./counter.php?page=1</font></strong>&amp;ref=&quot;+document.referrer;<BR>
+document.write(&quot;&lt;img src='&quot;+c_url+&quot;'&gt;&quot;);<BR>
+// --&gt;<BR>
+&lt;/SCRIPT&gt;<BR>
+&lt;NOSCRIPT&gt;&lt;img src=&quot;<font color="#9900FF"><strong>./counter.php?page=1</strong></font>&quot;&gt;&lt;/NOSCRIPT&gt; <BR>
+&lt;!-- カウンター表示部ここまで --&gt; </td>
+</tr>
+</table>
+<p></p>
+<p><strong><font color="#0066FF"><BR>
+<font color="#006600">▼カウンターを表示せずにアクセスログ機能だけを使用する場合</font> </font></strong></p>
+<p>カウンターは何も表示せずに、「まるかんた」の持つアクセスログ解析機能のみを利用する場合は次のスクリプトを挿入します。</p>
+<table border="0" cellspacing="0" cellpadding="8">
+<tr>
+<td bgcolor="#D9D9EA">&lt;!-- CGI呼出部ここから --&gt;<BR>
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;&lt;!--<BR>
+c_url = &quot;<font color="#9900FF"><strong>./counter.php?page=1</strong></font>&amp;mode=noimage&amp;ref=&quot;+document.referrer;<BR>
+document.write(&quot;&lt;img src='&quot;+c_url+&quot;' width=1 height=1&gt;&quot;);<BR>
+// --&gt;<BR>
+&lt;/SCRIPT&gt;<BR>
+&lt;NOSCRIPT&gt;&lt;img src=&quot;<font color="#9900FF"><strong>./counter.php?page=1</strong></font>&amp;mode=noimage&quot; width=1 height=1&gt;&lt;/NOSCRIPT&gt; <BR>
+&lt;!-- CGI呼出部ここまで --&gt; </td>
+</tr>
+</table>
+<p><BR>
+<BR>
+<strong><font color="#0066FF"><font color="#006600">▼昨日と今日のカウンタを表示する場合</font></font></strong></p>
+<p>1.GDライブラリを使えるなら次のスクリプトを挿入してください。</p>
+<table border="0" cellspacing="0" cellpadding="8">
+<tr>
+<td bgcolor="#D9D9EA"><code>&lt;!-- 今日と昨日のアクセス表示　ここから --&gt;<BR>
+今日&lt;img src=&quot;<font color="#9900FF"><strong>./counter.php?page=1</strong></font>&amp;mode=today&quot;&gt;<BR>
+&amp;nbsp;&amp;nbsp;<BR>
+昨日&lt;img src=&quot;<font color="#9900FF"><strong>./counter.php?page=1</strong></font>&amp;mode=yesterday&quot;&gt;<BR>
+&lt;!-- 今日と昨日のアクセス表示　ここまで --&gt;</code></td>
+</tr>
+</table>
+<p>2.GDライブラリを使えない時は次のスクリプトを挿入してください。上のものと比べると若干、動作が遅くなります。</p>
+<table border="0" cellspacing="0" cellpadding="8">
+<tr>
+<td bgcolor="#D9D9EA"><p><code>&lt;!-- GDライブラリが使えない場合の今日のカウント表示　ここから --&gt;<BR>
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;&lt;!--<BR>
+c_url = &quot;<font color="#9900FF"><strong>./counter.php?page=1</strong></font>&amp;mode=today_js&quot;;<BR>
+document.write(&quot;&lt;sc&quot;+&quot;ript language='JavaScript' src='&quot;+c_url+&quot;'&gt;&lt;/sc&quot;+&quot;ript&gt;&quot;);<BR>
+//
+--&gt;<BR>
+&lt;/SCRIPT&gt;<BR>
+&lt;!-- GDライブラリが使えない場合の今日のカウント表示　ここまで --&gt;<BR>
+<BR>&amp;nbsp;&amp;nbsp;<BR>
+</code><code><BR>
+&lt;!-- GDライブラリが使えない場合の昨日のカウント表示　ここから
+--&gt;<BR>
+&lt;SCRIPT LANGUAGE=&quot;JavaScript&quot;&gt;&lt;!--<BR>
+c_url = &quot;<font color="#9900FF"><strong>./counter.php?page=1</strong></font>&amp;mode=yesterday_js&quot;;<BR>
+document.write(&quot;&lt;sc&quot;+&quot;ript language='JavaScript' src='&quot;+c_url+&quot;'&gt;&lt;/sc&quot;+&quot;ript&gt;&quot;);<BR>
+//
+--&gt;<BR>
+&lt;/SCRIPT&gt;<BR>
+&lt;!-- GDライブラリが使えない場合の今日のカウント表示　ここまで --&gt;</code></p>
+</td>
+</tr>
+</table>
+<p>&nbsp;</p>
+<b><font color="#FF6600">○ステップ２　counter.php内の設定変更</font></b>
+<p>　counter.phpをエディタで開き、先頭部分の設定を各自の環境にあわせて変更してください。とりあえず実行したい場合は変更しなくてもそのままで動作します。エディタは秀丸などのEUCに対応したものでないと文字化けするので注意してください。<BR>
+　ここでは設定項目中の特に重要なものについて解説します。</p>
+<p><font color="#0000FF">$UseGD = 1;</font><BR>
+PHPでGDライブラリを使えるなら1,使えないなら0を指定します。1にした場合はGDライブラリによってカウンターを一枚の画像として表示しますが、0にした場合は各桁分の数字画像を並べて表示します。ただし0にした場合はJavaScript未対応ブラウザでは動作しません。</p>
+<p><font color="#0000FF">$SaveAccessLog = 1;</font><BR>
+アクセスログを保存する場合は1,しない場合は0を指定します。アクセスログは放っておくと行数が増えていくので、定期的に削除やバックアップをしてください。</p>
+<p><font color="#0000FF">$PageIndex[(ページID)] = ドキュメント名;</font><BR>
+アクセスログに記録するためのページID(前章を参照)とドキュメント名を定義します。複数のページにアクセスカウンターを設置する場合は何個でも追加できます。尚、この設定項目はadmin.phpにもあるので、同じ内容にしておいてください。</p>
+<p> (記述例)<BR>
+$PageIndex[1] = &quot;index.html&quot;;<BR>
+$PageIndex[2] = &quot;hogehoge.html&quot;;<BR>
+$PageIndex[3] = &quot;piyopiyo.html&quot;;<BR>
+<font color="#0000FF"><BR>
+<BR>
+$kiribantani =100;</font><BR>
+何人ごとにキリ番にするかを指定します。0にするとキリ番機能が無効になります。</p>
+<p><font color="#0000FF">$sp_kiriban = array(77,123,333,555,777);</font><BR>
+上記以外の特別なキリ番を何個でも追加できます。</p>
+<b><BR>
+<font color="#FF6600">○ステップ３　ファイルのアップロード</font></b>
+<p>FTPソフト等を使ってPHPファイル、画像ファイル、カウンタを設置したHTMLファイルをサーバにアップロードします。サーバ上での各ファイルのパーミッションは次のようになります。(HTMLファイルの設置場所・パーミッションは任意)</p>
+<p>/(設置ディレクトリ)/ [755]<BR>
+　|<BR>
+　|--/data/ [777]...アクセスログやキリ番ゲット者のリストを保存するディレクトリ<BR>
+　|<BR>
+　|-- counter.php [744]... プログラム本体<BR>
+　|-- admin.php [744]... 管理用プログラム<BR>
+　|-- image.png [744]... カウンタ用の元画像</p>
+<hr size="1" noshade>
+<h3><strong><font color="#006600">複数のページにカウンターを設置する場合</font></strong></h3>
+<p>　複数のページにカウンターを設置する場合は、HTMLに挿入するタグの中の、page=○の部分を設置するページごとに違う数字にしてください。以後、この数字をページIDと呼びます。このページIDの設定はステップ２でCGIの設定を変更する時も必要になります。また、CGI本体(counter.php)とHTMLファイルを別々のディレクトリに設置する場合はCGIのパスも変更してください。</p>
+<pre>
+<strong><font color="#9900FF">./counter.php?page=1</font></strong>・・・
+------------- ------
+| |
+| +--- ページID(ページごとに異なる数字)を指定
+|
++------------ CGIのパス(設置場所)
+</pre>
+<p>前章・ステップ１のスクリプトで強調表示している部分がページIDとパスの設定箇所になります。</p>
+<hr size="1" noshade>
+<h3><strong><font color="#006600">フレーム内のページに設置する場合
+</font></strong>
+</h3>
+<p>　フレーム内のページにカウンターを設置した場合、リンク元がフレームのページとして記録されてしまいます。そのような場合は、タグ中の document.referrer を parent.document.referrer に変更してください。</p>
+<hr size="1" noshade>
+<h3><b><font color="#006600">カウンタ用画像について</font></b>
+</h3>
+<p>　カウンター用の画像は自由に他の画像と差し替えて使えます。インターネット上にはフリーで使えるカウンター用画像サイトが多数ありますので、是非、好みの画像を探してみてください。ここでは画像変更時の手順について説明します。<BR>
+　まず、0～9の数字を等間隔に並べた画像を元画像として用意します(図1)。画像サイズに特に制限はありませんが常識的なサイズにしてください。ファイル形式はGIF,PNG,JPEG,BMPが使えますが、GDライブラリの現バージョンがGIFのサポートを打ち切ったことを考えると、PNGかJPEGで用意しておくのが無難です。</p>
+<table border="1" cellspacing="0" cellpadding="8" bordercolor="#999999">
+<tr>
+<td><img src="image_for_document_1.jpg" width="400" height="150"></td>
+</tr>
+</table>
+<p><BR>
+次にcounter.php内の設定を変更します。</p>
+<p><font color="#0000FF">$ImageSrcName = &quot;image.png&quot;;</font><BR>
+用意した画像のファイル名</p>
+<p><font color="#0000FF">$ImageSrcType = 0;</font><BR>
+画像の種類( 0:PNG 1:GIF 2:JPG 3:BMP)</p>
+<p><font color="#0000FF">$ImgSize_number_x = 32;</font><BR>
+数字画像1つあたりの横サイズ(ピクセル)</p>
+<p><font color="#0000FF">$ImgSize_number_y = 32;</font><BR>
+数字画像1つあたりの縦サイズ(ピクセル)</p>
+<p>尚、GDライブラリを利用できない場合は、10個の数字画像に 0.gif, 1.gif ～ 9.gif という名前を付けて用意します(GIFの場合)。この場合、上記の設定では$ImageSrcTypeのみが有効になります。<BR>
+</p>
+<p></p>
+<hr size="1" noshade>
+<h3><b><font color="#006600">他のアクセスカウンタから移行する場合</font></b>
+</h3>
+<p>既に他のアクセスカウンタを利用していて、今ままでのカウント数を引き継ぎたいという場合は、一度CGIを実行した後、dataディレクトリ内に作成されるcount_(ページID).datというファイルをエディタ等で開いて数字を直接修正してください。</p>
+<hr size="1" noshade>
+<h3><b><font color="#006600">管理人モード</font></b>
+</h3>
+<p>admin.phpを呼び出すとアクセスログ閲覧やログ解析が出来ます。あらかじめ、admin.phpをエディタ等で開いて管理人パスワードを変更しておいてください。</p>
+<hr size="1" noshade>
+<h3><b><font color="#006600">機能の制限</font></b>
+</h3>
+<p>・ブラウザがJacaScriptに対応していか、又は無効にしている場合は、Referrer(リンク元)記録とキリ番ゲット者の一覧表示・名前登録機能を利用できません。</p>
+<p>・ブラウザがCookieに対応していないか、又は無効にしている場合は、前回の訪問日・訪問回数を記録できません。</p>
+<hr size="1" noshade>
+<h3><b><font color="#006600">困ったときは</font></b></h3>
+<p><font color="#FF6600"><strong>◆動作しない(画像が表示されない・エラーが出る、など)</strong></font></p>
+<p>サーバーのPHPのバージョンと、GDライブラリが使用可能かどうかの確認をしてください。<BR>
+レンタルサーバー等では未だにv4.1.0以前の古いバージョンを使っている所がありますが、そのような場合はサーバー管理者にお願いしてバージョンアップしてもらいましょう。最新版のv4.3.0ならば、標準でGDライブラリが使用できます。<BR>
+<BR>
+PHPのバージョンは、次のスクリプトで調べることができます。適当なファイル名(test.phpなど)を付けてサーバーにアップロードし、実行してください。</p>
+<table border="0" cellspacing="0" cellpadding="8">
+<tr>
+<td bgcolor="#D9D9EA">
+<code>
+&lt;?php<BR>
+phpinfo();<BR>
+?&gt;</code></td>
+</tr>
+</table>
+<p>このスクリプトを実行すると、画面の一番上にPHPのバージョンが表示されます。<BR>
+そして、上から３段目あたりにある 'Configure Command' という項目の中に '--with-gd'が入っていればGDライブラリを使用できます。これが'--without-gd'になっていると使用不可です。<BR>
+'--with-gd'も'--without-gd'も書いてない時は、サーバー管理者に確認してみるか、とりあえずカウンターを設置して試してみる手があります。</p>
+<p>PHPのバージョンもGDライブラリも問題が無いのに動作しない時は、各ファイル・ディレクトリのパーミッションを確認してください。<BR>
+特に、データ保存用ディレクトリのパーミッションが間違っていると、カウンタファイルを作成できずにエラーになります。</p>
+<p>&nbsp;</p>
+<p><font color="#FF6600"><strong>◆エディタでPHPファイルを開くと文字化けする</strong></font></p>
+<p>EUCに対応しているエディタで開いてください(秀丸エディタなど)。<BR>
+<BR>
+ちなみに、秀丸エディタの場合は設定を次のように変更してください。<BR>
+メニューの「その他」から「動作環境」の画面を表示して、その左側にある「編集」を選択し、「文字コードの自動認識をする」をオンにしてください。<BR>
+</p>
+<hr size="1" noshade>
+</body>
+</html>
